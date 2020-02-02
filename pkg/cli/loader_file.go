@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -75,6 +76,9 @@ func loadConfigFiles(configFile string, element interface{}) (string, error) {
 	}
 
 	if len(filePath) == 0 {
+		if configFile != "" {
+			return "", errors.New("configFile not found: " + configFile)
+		}
 		return "", nil
 	}
 
